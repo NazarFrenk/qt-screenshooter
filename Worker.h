@@ -3,6 +3,8 @@
 
 #include <QThread>
 #include <QtSql>
+#include <QTimer>
+#include <QCryptographicHash>
 
 class Worker : public QThread
 {

@@ -2,6 +2,7 @@
 #define WORKER_H
 
 #include <QThread>
+#include <QtSql>
 
 class Worker : public QThread
 {

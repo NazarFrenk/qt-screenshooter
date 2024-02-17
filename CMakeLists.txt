@@ -19,6 +19,8 @@ set(PROJECT_SOURCES
         MainWindow.cpp
         MainWindow.h
         MainWindow.ui
+        Worker.cpp
+        Worker.h
         ${TS_FILES}
 )
 

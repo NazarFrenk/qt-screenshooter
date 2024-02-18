@@ -9,6 +9,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(ui->startStopBtn, &QPushButton::clicked, this, &MainWindow::grabProcess);
 
+    ui->statusbar->showMessage("Grab: stopped");
+
     createDB();
     loadData();
 }
@@ -21,6 +23,18 @@ MainWindow::~MainWindow()
 void MainWindow::grabProcess()
 {
     // TODO - write implementations
+    if(mWorker == nullptr)
+    {
+        mWorker = new Worker();
+        mWorker->start();
+        ui->statusbar->showMessage("Grab: active");
+    }
+    else
+    {
+        mWorker->terminate();
+        mWorker = nullptr;
+        ui->statusbar->showMessage("Grab: stopped");
+    }
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)

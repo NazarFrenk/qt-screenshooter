@@ -2,7 +2,7 @@
 #define WORKER_H
 
 #include <QThread>
-#include <QtSql>
+#include <QSqlQuery>
 #include <QTimer>
 #include <QCryptographicHash>
 

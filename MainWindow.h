@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QtSql>
+#include <QSqlQuery>
 #include "Worker.h"
 
 QT_BEGIN_NAMESPACE
@@ -30,5 +30,6 @@ private:
     Ui::MainWindow *ui;
 
     Worker* mWorker = nullptr;
+    int mLastId = 0; // id of the latest image in DB
 };
 #endif // MAINWINDOW_H

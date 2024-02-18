@@ -2,8 +2,6 @@
 
 Worker::Worker(int id)
 {
-    // TODO - add timer
-    // just for test
     mLastId = id;
     qDebug() << "ID from MainWindow" << mLastId;
 
@@ -34,13 +32,12 @@ void Worker::createHash()
 {
     // TODO - write implementations
     QCryptographicHash md5(QCryptographicHash::Md5);
-    QByteArray bArray;
-    QBuffer buffer(&bArray);
+    QBuffer buffer(&mImageData);
     buffer.open(QIODevice::WriteOnly);
     mCurrentImage.save(&buffer, "PNG");
-    md5.addData(bArray);
-    QString Md5Str = md5.result().toHex();
-    qDebug() << Md5Str << bArray.count();
+    md5.addData(mImageData);
+    mMd5Str = md5.result().toHex();
+    qDebug() << mMd5Str << mImageData.count();
 }
 
 void Worker::compareImages()
@@ -61,6 +58,15 @@ void Worker::addToDB()
     {
         mLastId = 1;
     }
+
+    QSqlQuery query;
+    query.prepare("INSERT INTO data (id, data, hash, percentage) "
+                "VALUES (:id, :data, :hash, :percentage)");
+    query.bindValue(":id", mLastId);
+    query.bindValue(":data", mImageData);
+    query.bindValue(":hash", mMd5Str);
+    query.bindValue(":percentage", 0); // TODO - replace by variable
+    query.exec();
 
     qDebug() << "Inserted id:" << mLastId;
 }

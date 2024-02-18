@@ -28,6 +28,8 @@ private:
     void addToDB(); // add new item to database
 
     int mLastId = -1;
+    QByteArray mImageData;
+    QString mMd5Str = "";
     QPixmap mCurrentImage;
     QTimer* mTimer = nullptr;
 };

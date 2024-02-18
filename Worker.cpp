@@ -4,7 +4,8 @@ Worker::Worker() {}
 
 void Worker::grabSpanshot()
 {
-    // TODO - write implementations
+    QScreen *screen = QGuiApplication::primaryScreen();
+    mCurrentImage = screen->grabWindow(0);
 }
 
 void Worker::createHash()

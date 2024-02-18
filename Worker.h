@@ -5,6 +5,9 @@
 #include <QSqlQuery>
 #include <QTimer>
 #include <QCryptographicHash>
+#include <QScreen>
+#include <QGuiApplication>
+#include <QPixmap>
 
 class Worker : public QThread
 {
@@ -17,6 +20,8 @@ private:
     void createHash(); // create md5 of image
     void compareImages(); // compare images
     void addToDB(); // add new item to database
+
+    QPixmap mCurrentImage;
 };
 
 #endif // WORKER_H

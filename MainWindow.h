@@ -24,6 +24,9 @@ public:
 private slots:
     void grabProcess();
 
+signals:
+    void stop();
+
 private:
     void closeEvent(QCloseEvent *event) override;
     void createDB(); // create table if not exists

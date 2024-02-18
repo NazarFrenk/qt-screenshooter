@@ -35,11 +35,13 @@ void MainWindow::grabProcess()
         }
 
         mWorker = new Worker(mLastId);
+        connect(this, SIGNAL(stop()), mWorker, SLOT(stop()));
         mWorker->start();
         ui->statusbar->showMessage("Grab: active");
     }
     else
     {
+        emit stop();
         mWorker->terminate();
         mWorker = nullptr;
         ui->statusbar->showMessage("Grab: stopped");

@@ -17,6 +17,10 @@ class Worker : public QThread
 public:
     Worker(int id);
 
+private slots:
+    void processing();
+    void stop();
+
 private:
     void grabSpanshot(); // take a screenshot of the desktop
     void createHash(); // create md5 of image
@@ -25,6 +29,7 @@ private:
 
     int mLastId = -1;
     QPixmap mCurrentImage;
+    QTimer* mTimer = nullptr;
 };
 
 #endif // WORKER_H

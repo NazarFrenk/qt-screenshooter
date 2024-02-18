@@ -6,9 +6,22 @@ Worker::Worker(int id)
     // just for test
     mLastId = id;
     qDebug() << "ID from MainWindow" << mLastId;
+
+    mTimer = new QTimer();
+    connect(mTimer, &QTimer::timeout, this, &Worker::processing);
+    mTimer->start(1000); // TODO - set to 60000
+}
+
+void Worker::processing()
+{
     grabSpanshot();
     createHash();
     addToDB();
+}
+
+void Worker::stop()
+{
+    mTimer->stop();
 }
 
 void Worker::grabSpanshot()

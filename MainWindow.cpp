@@ -25,7 +25,16 @@ void MainWindow::grabProcess()
     // TODO - write implementations
     if(mWorker == nullptr)
     {
-        mWorker = new Worker();
+        QSqlQuery query;
+        query.prepare("SELECT MAX(id) FROM data");
+        query.exec();
+
+        if(query.next())
+        {
+            mLastId = query.value(0).toInt();
+        }
+
+        mWorker = new Worker(mLastId);
         mWorker->start();
         ui->statusbar->showMessage("Grab: active");
     }
@@ -65,7 +74,7 @@ void MainWindow::loadData()
     int records = -1; // number of records in table
 
     QSqlQuery query;
-    query.prepare("SELECT MAX(id) FROM data");
+    query.prepare("SELECT COUNT (*) FROM data");
     query.exec();
 
     if(query.next())
@@ -75,7 +84,7 @@ void MainWindow::loadData()
 
     qDebug() << records;
 
-    query.prepare("SELECT COUNT (*) FROM data");
+    query.prepare("SELECT MAX(id) FROM data");
     query.exec();
 
     if(query.next())

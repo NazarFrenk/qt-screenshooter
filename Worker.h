@@ -15,7 +15,7 @@ class Worker : public QThread
 {
     Q_OBJECT
 public:
-    Worker();
+    Worker(int id);
 
 private:
     void grabSpanshot(); // take a screenshot of the desktop
@@ -23,6 +23,7 @@ private:
     void compareImages(); // compare images
     void addToDB(); // add new item to database
 
+    int mLastId = -1;
     QPixmap mCurrentImage;
 };
 

@@ -1,11 +1,14 @@
 #include "Worker.h"
 
-Worker::Worker()
+Worker::Worker(int id)
 {
     // TODO - add timer
     // just for test
+    mLastId = id;
+    qDebug() << "ID from MainWindow" << mLastId;
     grabSpanshot();
     createHash();
+    addToDB();
 }
 
 void Worker::grabSpanshot()
@@ -35,4 +38,16 @@ void Worker::compareImages()
 void Worker::addToDB()
 {
     // TODO - write implementations
+    // there are some records in DB
+    if (mLastId > 0)
+    {
+        mLastId++;
+    }
+    // it will be first
+    else
+    {
+        mLastId = 1;
+    }
+
+    qDebug() << "Inserted id:" << mLastId;
 }

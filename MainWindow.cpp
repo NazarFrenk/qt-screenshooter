@@ -47,7 +47,14 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 void MainWindow::createDB()
 {
-    // TODO - write implementations
+    QDir databasePath;
+    QString path = databasePath.currentPath() + "/data.db";
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName(path);
+    db.open();
+    QSqlQuery query;
+    query.prepare("CREATE TABLE IF NOT EXISTS data (id INTEGER NOT NULL PRIMARY KEY, data BLOB, hash TEXT, percentage REAL);");
+    query.exec();
 }
 
 void MainWindow::loadData()

@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QSqlQuery>
+#include <QDir>
 #include "Worker.h"
 
 QT_BEGIN_NAMESPACE

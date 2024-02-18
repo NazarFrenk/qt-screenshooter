@@ -19,3 +19,11 @@ void MainWindow::grabProcess()
 {
     // TODO - write implementations
 }
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    if(mWorker && mWorker->isRunning())
+    {
+        mWorker->terminate();
+    }
+}

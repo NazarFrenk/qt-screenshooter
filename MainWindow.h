@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QtSql>
+#include "Worker.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -22,6 +23,10 @@ private slots:
     void grabProcess();
 
 private:
+    void closeEvent(QCloseEvent *event) override;
+
     Ui::MainWindow *ui;
+
+    Worker* mWorker = nullptr;
 };
 #endif // MAINWINDOW_H

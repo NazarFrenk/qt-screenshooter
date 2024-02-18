@@ -6,9 +6,16 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    connect(ui->startStopBtn, &QPushButton::clicked, this, &MainWindow::grabProcess);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::grabProcess()
+{
+    // TODO - write implementations
 }

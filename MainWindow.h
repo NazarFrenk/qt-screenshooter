@@ -18,6 +18,9 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void grabProcess();
+
 private:
     Ui::MainWindow *ui;
 };

@@ -1,6 +1,12 @@
 #include "Worker.h"
 
-Worker::Worker() {}
+Worker::Worker()
+{
+    // TODO - add timer
+    // just for test
+    grabSpanshot();
+    createHash();
+}
 
 void Worker::grabSpanshot()
 {
@@ -11,6 +17,14 @@ void Worker::grabSpanshot()
 void Worker::createHash()
 {
     // TODO - write implementations
+    QCryptographicHash md5(QCryptographicHash::Md5);
+    QByteArray bArray;
+    QBuffer buffer(&bArray);
+    buffer.open(QIODevice::WriteOnly);
+    mCurrentImage.save(&buffer, "PNG");
+    md5.addData(bArray);
+    QString Md5Str = md5.result().toHex();
+    qDebug() << Md5Str << bArray.count();
 }
 
 void Worker::compareImages()

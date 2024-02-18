@@ -8,6 +8,8 @@
 #include <QScreen>
 #include <QGuiApplication>
 #include <QPixmap>
+#include <QBuffer>
+#include <QDebug>
 
 class Worker : public QThread
 {

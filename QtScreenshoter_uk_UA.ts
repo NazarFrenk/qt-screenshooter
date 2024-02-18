@@ -4,12 +4,12 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="MainWindow.ui" line="14"/>
+        <location filename="MainWindow.ui" line="20"/>
         <source>QtScreenshoter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="27"/>
+        <location filename="MainWindow.ui" line="33"/>
         <source>Start/Stop</source>
         <translation type="unfinished"></translation>
     </message>

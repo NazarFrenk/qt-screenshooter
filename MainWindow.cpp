@@ -60,4 +60,28 @@ void MainWindow::createDB()
 void MainWindow::loadData()
 {
     // TODO - write implementations
+    mListData = new QList<QListWidgetItem>();
+
+    int records = -1; // number of records in table
+
+    QSqlQuery query;
+    query.prepare("SELECT MAX(id) FROM data");
+    query.exec();
+
+    if(query.next())
+    {
+        records = query.value(0).toInt();
+    }
+
+    qDebug() << records;
+
+    query.prepare("SELECT COUNT (*) FROM data");
+    query.exec();
+
+    if(query.next())
+    {
+        mLastId = query.value(0).toInt();
+    }
+
+    qDebug() << mLastId;
 }

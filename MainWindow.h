@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QSqlQuery>
 #include <QDir>
+#include <QListWidgetItem>
 #include "Worker.h"
 
 QT_BEGIN_NAMESPACE
@@ -31,6 +32,7 @@ private:
     Ui::MainWindow *ui;
 
     Worker* mWorker = nullptr;
-    int mLastId = 0; // id of the latest image in DB
+    int mLastId = -1; // id of the latest image in DB
+    QList<QListWidgetItem>* mListData = nullptr;
 };
 #endif // MAINWINDOW_H

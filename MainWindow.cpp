@@ -8,6 +8,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     connect(ui->startStopBtn, &QPushButton::clicked, this, &MainWindow::grabProcess);
+
+    createDB();
+    loadData();
 }
 
 MainWindow::~MainWindow()
@@ -26,4 +29,14 @@ void MainWindow::closeEvent(QCloseEvent *event)
     {
         mWorker->terminate();
     }
+}
+
+void MainWindow::createDB()
+{
+    // TODO - write implementations
+}
+
+void MainWindow::loadData()
+{
+    // TODO - write implementations
 }

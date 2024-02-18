@@ -24,6 +24,8 @@ private slots:
 
 private:
     void closeEvent(QCloseEvent *event) override;
+    void createDB(); // create table if not exists
+    void loadData(); // load data to listview
 
     Ui::MainWindow *ui;
 

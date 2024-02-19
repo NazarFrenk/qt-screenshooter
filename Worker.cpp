@@ -7,7 +7,7 @@ Worker::Worker(int id)
 
     mTimer = new QTimer();
     connect(mTimer, &QTimer::timeout, this, &Worker::processing);
-    mTimer->start(5000); // TODO - set to 60000
+    mTimer->start(60000);
 }
 
 void Worker::processing()

@@ -95,4 +95,27 @@ void MainWindow::loadData()
     }
 
     qDebug() << mLastId;
+
+    query.prepare("SELECT * FROM data ORDER BY id DESC");
+    query.exec();
+
+    QPixmap image;
+    QByteArray imageData;
+    QListWidgetItem *item;
+
+    ui->listWidget->setIconSize(QSize(800, 600));
+    ui->listWidget->setResizeMode(QListWidget::Adjust);
+
+    while (query.next()) {
+        imageData = query.value("data").toByteArray();
+        image.loadFromData(imageData, "PNG");
+
+        QString id = query.value("id").toString();
+        item = new QListWidgetItem(QIcon(image), id);
+
+        mListData->append(*item);
+        ui->listWidget->addItem(item);
+    }
+
+
 }

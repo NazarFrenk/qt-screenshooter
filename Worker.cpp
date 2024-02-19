@@ -43,7 +43,7 @@ void Worker::createHash()
 void Worker::compareImages()
 {
     // TODO - write implementations
-    if (mLastId > 0)
+    if (mLastId > 1)
     {
         QSqlQuery query;
         query.prepare("SELECT data FROM data WHERE id = (:id)");

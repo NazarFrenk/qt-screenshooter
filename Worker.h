@@ -10,6 +10,7 @@
 #include <QPixmap>
 #include <QBuffer>
 #include <QDebug>
+#include <opencv2/opencv.hpp>
 
 class Worker : public QThread
 {
@@ -36,6 +37,8 @@ private:
     QString mMd5Str = "";
     QPixmap mCurrentImage;
     QTimer* mTimer = nullptr;
+
+    cv::Mat test;
 };
 
 #endif // WORKER_H

@@ -7,7 +7,7 @@ Worker::Worker(int id)
 
     mTimer = new QTimer();
     connect(mTimer, &QTimer::timeout, this, &Worker::processing);
-    mTimer->start(5000);
+    mTimer->start(60000);
 }
 
 void Worker::processing()
@@ -42,11 +42,11 @@ void Worker::createHash()
 
 void Worker::compareImages()
 {
-    if (mLastId > 1)
+    if (mLastId > 0)
     {
         QSqlQuery query;
         query.prepare("SELECT data FROM data WHERE id = (:id)");
-        query.bindValue(":id", mLastId - 1);
+        query.bindValue(":id", mLastId);
         query.exec();
 
         QByteArray prevImageData;

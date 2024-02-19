@@ -64,8 +64,8 @@ void MainWindow::getNewRecord(int newId)
         imageData = query.value("data").toByteArray();
         image.loadFromData(imageData, "PNG");
 
-        QString id = query.value("percentage").toString();
-        item = new QListWidgetItem(QIcon(image), id);
+        QString percentage = QString("%1%").arg(QString::number(query.value("percentage").toFloat(), 'f', 3));
+        item = new QListWidgetItem(QIcon(image), percentage);
 
         ui->listWidget->insertItem(0, item);
     }
@@ -131,8 +131,8 @@ void MainWindow::loadData()
         imageData = query.value("data").toByteArray();
         image.loadFromData(imageData, "PNG");
 
-        QString id = query.value("percentage").toString();
-        item = new QListWidgetItem(QIcon(image), id);
+        QString percentage = QString("%1%").arg(QString::number(query.value("percentage").toFloat(), 'f', 3));
+        item = new QListWidgetItem(QIcon(image), percentage);
 
         ui->listWidget->addItem(item);
     }

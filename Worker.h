@@ -32,13 +32,11 @@ private:
     void addToDB(); // add new item to database
 
     int mLastId = -1;
-    float mSimilarity = 0;
+    double mSimilarity = 0;
     QByteArray mImageData;
     QString mMd5Str = "";
     QPixmap mCurrentImage;
     QTimer* mTimer = nullptr;
-
-    cv::Mat test;
 };
 
 #endif // WORKER_H

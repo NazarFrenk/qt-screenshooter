@@ -62,7 +62,7 @@ void MainWindow::getNewRecord(int newId)
 
     while (query.next()) {
         imageData = query.value("data").toByteArray();
-        image.loadFromData(imageData, "PNG");
+        image.loadFromData(imageData, "BMP");
 
         QString percentage = QString("%1%").arg(QString::number(query.value("percentage").toFloat(), 'f', 3));
         item = new QListWidgetItem(QIcon(image), percentage);
@@ -129,7 +129,7 @@ void MainWindow::loadData()
 
     while (query.next()) {
         imageData = query.value("data").toByteArray();
-        image.loadFromData(imageData, "PNG");
+        image.loadFromData(imageData, "BMP");
 
         QString percentage = QString("%1%").arg(QString::number(query.value("percentage").toFloat(), 'f', 3));
         item = new QListWidgetItem(QIcon(image), percentage);

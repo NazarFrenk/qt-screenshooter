@@ -7,7 +7,7 @@ Worker::Worker(int id)
 
     mTimer = new QTimer();
     connect(mTimer, &QTimer::timeout, this, &Worker::processing);
-    mTimer->start(60000);
+    mTimer->start(5000);
 }
 
 void Worker::processing()
@@ -34,7 +34,7 @@ void Worker::createHash()
     QCryptographicHash md5(QCryptographicHash::Md5);
     QBuffer buffer(&mImageData);
     buffer.open(QIODevice::WriteOnly);
-    mCurrentImage.save(&buffer, "PNG");
+    mCurrentImage.save(&buffer, "BMP");
     md5.addData(mImageData);
     mMd5Str = md5.result().toHex();
     qDebug() << mMd5Str << mImageData.count();
@@ -42,7 +42,6 @@ void Worker::createHash()
 
 void Worker::compareImages()
 {
-    // TODO - write implementations
     if (mLastId > 1)
     {
         QSqlQuery query;
@@ -56,19 +55,12 @@ void Worker::compareImages()
             prevImageData = query.value("data").toByteArray();
         }
 
-        int bytes = std::min(prevImageData.size(), mImageData.size());
+        QImage temp = QImage::fromData(prevImageData);
 
-        int count = 0;
+        cv::Mat prevImageMat = cv::Mat(temp.width(), temp.height(), CV_8UC3, prevImageData.data());
+        cv::Mat curImageMat = cv::Mat(mCurrentImage.width(), mCurrentImage.height(), CV_8UC3, mImageData.data());double errorL2 = cv::norm(curImageMat, prevImageMat, cv::NORM_L2, cv::noArray());
 
-        for (int i = 0; i < bytes - 1; i++)
-        {
-            if(mImageData[i] == prevImageData[i])
-            {
-                count++;
-            }
-        }
-
-        mSimilarity = float(count) / float(bytes) * 100.0;
+        mSimilarity = (1 - errorL2 / (mCurrentImage.width() * mCurrentImage.height())) * 100;
     }
     // it will be first
     else

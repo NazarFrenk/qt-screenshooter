@@ -37,6 +37,5 @@ private:
 
     Worker* mWorker = nullptr;
     int mLastId = -1; // id of the latest image in DB
-    QList<QListWidgetItem>* mListData = nullptr;
 };
 #endif // MAINWINDOW_H

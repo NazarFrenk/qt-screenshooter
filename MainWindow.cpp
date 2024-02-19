@@ -51,9 +51,10 @@ void MainWindow::grabProcess()
 
 void MainWindow::getNewRecord(int newId)
 {
+    mLastId = newId;
     QSqlQuery query;
     query.prepare("SELECT * FROM data WHERE id = (:id)");
-    query.bindValue(":id", newId);
+    query.bindValue(":id", mLastId);
     query.exec();
 
     QPixmap image;
@@ -67,7 +68,6 @@ void MainWindow::getNewRecord(int newId)
         QString id = query.value("id").toString();
         item = new QListWidgetItem(QIcon(image), id);
 
-        mListData->push_front(*item);
         ui->listWidget->insertItem(0, item);
     }
 }
@@ -76,6 +76,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 {
     if(mWorker && mWorker->isRunning())
     {
+        emit stop();
         mWorker->terminate();
     }
 }
@@ -95,8 +96,6 @@ void MainWindow::createDB()
 void MainWindow::loadData()
 {
     // TODO - write implementations
-    mListData = new QList<QListWidgetItem>();
-
     int records = -1; // number of records in table
 
     QSqlQuery query;
@@ -137,9 +136,6 @@ void MainWindow::loadData()
         QString id = query.value("id").toString();
         item = new QListWidgetItem(QIcon(image), id);
 
-        mListData->append(*item);
         ui->listWidget->addItem(item);
     }
-
-
 }

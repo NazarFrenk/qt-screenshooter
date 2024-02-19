@@ -23,6 +23,7 @@ public:
 
 private slots:
     void grabProcess();
+    void getNewRecord(int newId);
 
 signals:
     void stop();

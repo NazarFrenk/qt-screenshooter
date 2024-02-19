@@ -36,6 +36,7 @@ void MainWindow::grabProcess()
 
         mWorker = new Worker(mLastId);
         connect(this, SIGNAL(stop()), mWorker, SLOT(stop()));
+        connect(mWorker, SIGNAL(newRecord(int)), this, SLOT(getNewRecord(int)));
         mWorker->start();
         ui->statusbar->showMessage("Grab: active");
     }
@@ -45,6 +46,29 @@ void MainWindow::grabProcess()
         mWorker->terminate();
         mWorker = nullptr;
         ui->statusbar->showMessage("Grab: stopped");
+    }
+}
+
+void MainWindow::getNewRecord(int newId)
+{
+    QSqlQuery query;
+    query.prepare("SELECT * FROM data WHERE id = (:id)");
+    query.bindValue(":id", newId);
+    query.exec();
+
+    QPixmap image;
+    QByteArray imageData;
+    QListWidgetItem *item;
+
+    while (query.next()) {
+        imageData = query.value("data").toByteArray();
+        image.loadFromData(imageData, "PNG");
+
+        QString id = query.value("id").toString();
+        item = new QListWidgetItem(QIcon(image), id);
+
+        mListData->push_front(*item);
+        ui->listWidget->insertItem(0, item);
     }
 }
 

@@ -69,4 +69,6 @@ void Worker::addToDB()
     query.exec();
 
     qDebug() << "Inserted id:" << mLastId;
+
+    emit newRecord(mLastId);
 }

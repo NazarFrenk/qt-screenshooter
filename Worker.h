@@ -17,6 +17,9 @@ class Worker : public QThread
 public:
     Worker(int id);
 
+signals:
+    void newRecord(int newId);
+
 private slots:
     void processing();
     void stop();

@@ -7,13 +7,14 @@ Worker::Worker(int id)
 
     mTimer = new QTimer();
     connect(mTimer, &QTimer::timeout, this, &Worker::processing);
-    mTimer->start(1000); // TODO - set to 60000
+    mTimer->start(5000); // TODO - set to 60000
 }
 
 void Worker::processing()
 {
     grabSpanshot();
     createHash();
+    compareImages();
     addToDB();
 }
 
@@ -30,7 +31,6 @@ void Worker::grabSpanshot()
 
 void Worker::createHash()
 {
-    // TODO - write implementations
     QCryptographicHash md5(QCryptographicHash::Md5);
     QBuffer buffer(&mImageData);
     buffer.open(QIODevice::WriteOnly);
@@ -43,11 +43,42 @@ void Worker::createHash()
 void Worker::compareImages()
 {
     // TODO - write implementations
+    if (mLastId > 0)
+    {
+        QSqlQuery query;
+        query.prepare("SELECT data FROM data WHERE id = (:id)");
+        query.bindValue(":id", mLastId - 1);
+        query.exec();
+
+        QByteArray prevImageData;
+
+        while (query.next()) {
+            prevImageData = query.value("data").toByteArray();
+        }
+
+        int bytes = std::min(prevImageData.size(), mImageData.size());
+
+        int count = 0;
+
+        for (int i = 0; i < bytes - 1; i++)
+        {
+            if(mImageData[i] == prevImageData[i])
+            {
+                count++;
+            }
+        }
+
+        mSimilarity = float(count) / float(bytes) * 100.0;
+    }
+    // it will be first
+    else
+    {
+        mSimilarity = 0;
+    }
 }
 
 void Worker::addToDB()
 {
-    // TODO - write implementations
     // there are some records in DB
     if (mLastId > 0)
     {
@@ -65,7 +96,7 @@ void Worker::addToDB()
     query.bindValue(":id", mLastId);
     query.bindValue(":data", mImageData);
     query.bindValue(":hash", mMd5Str);
-    query.bindValue(":percentage", 0); // TODO - replace by variable
+    query.bindValue(":percentage", mSimilarity);
     query.exec();
 
     qDebug() << "Inserted id:" << mLastId;

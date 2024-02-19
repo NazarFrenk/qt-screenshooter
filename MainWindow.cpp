@@ -22,7 +22,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::grabProcess()
 {
-    // TODO - write implementations
     if(mWorker == nullptr)
     {
         QSqlQuery query;
@@ -65,7 +64,7 @@ void MainWindow::getNewRecord(int newId)
         imageData = query.value("data").toByteArray();
         image.loadFromData(imageData, "PNG");
 
-        QString id = query.value("id").toString();
+        QString id = query.value("percentage").toString();
         item = new QListWidgetItem(QIcon(image), id);
 
         ui->listWidget->insertItem(0, item);
@@ -95,7 +94,6 @@ void MainWindow::createDB()
 
 void MainWindow::loadData()
 {
-    // TODO - write implementations
     int records = -1; // number of records in table
 
     QSqlQuery query;
@@ -133,7 +131,7 @@ void MainWindow::loadData()
         imageData = query.value("data").toByteArray();
         image.loadFromData(imageData, "PNG");
 
-        QString id = query.value("id").toString();
+        QString id = query.value("percentage").toString();
         item = new QListWidgetItem(QIcon(image), id);
 
         ui->listWidget->addItem(item);

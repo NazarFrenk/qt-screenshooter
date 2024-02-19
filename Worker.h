@@ -31,6 +31,7 @@ private:
     void addToDB(); // add new item to database
 
     int mLastId = -1;
+    float mSimilarity = 0;
     QByteArray mImageData;
     QString mMd5Str = "";
     QPixmap mCurrentImage;
